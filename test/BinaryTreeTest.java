@@ -59,4 +59,40 @@ public class BinaryTreeTest {
         assertEquals(8, depths.get(3).get(0).value);
         assertEquals(16, depths.get(3).get(1).value);
     }
+
+    @Test
+    public void checkThatTreeIsBalanced() {
+        BSTMaker maker = new BSTMaker();
+        BalancedTreeChecker checker = new BalancedTreeChecker();
+
+        BTNode node = maker.makeBST(new int[]{1,3,5,8,9,13,14,15,16});
+
+        assertTrue(checker.isBalanced(node));
+    }
+
+    @Test
+    public void checkThatTreeIsNotBalanced()
+    {
+        BalancedTreeChecker checker = new BalancedTreeChecker();
+
+        BTNode root = new BTNode(50);
+        root.left = new BTNode(25);
+        root.right = new BTNode(25);
+
+        root.left.left = new BTNode(20);
+        root.left.right = new BTNode(35);
+
+        root.left.left.left = new BTNode(10);
+        root.left.left.right = new BTNode(22);
+
+        root.left.right.left = new BTNode(30);
+        root.left.right.left = new BTNode(40);
+
+        root.right.right = new BTNode(75);
+        root.right.right = new BTNode(90);
+        root.right.right.left = new BTNode(80);
+        root.right.right.right = new BTNode(95);
+
+        assertFalse(checker.isBalanced(root));
+    }
 }
