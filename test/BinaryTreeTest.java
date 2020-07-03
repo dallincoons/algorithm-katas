@@ -95,4 +95,44 @@ public class BinaryTreeTest {
 
         assertFalse(checker.isBalanced(root));
     }
+
+    @Test
+    public void checkValidBinarySearchTree() {
+        BSTMaker maker = new BSTMaker();
+        BTNode node = maker.makeBST(new int[]{1,3,5,8,9,13,14,15,16});
+
+        BSTValidator validator = new BSTValidator();
+
+        assertTrue(validator.isValidBST(node));
+    }
+
+    @Test
+    public void checkInvalidBinarySearchTree() {
+        BSTMaker maker = new BSTMaker();
+        BTNode node = maker.makeBST(new int[]{3,1,5,8,9,13,14,15,16});
+
+        BSTValidator validator = new BSTValidator();
+
+        assertFalse(validator.isValidBST(node));
+    }
+
+    @Test
+    public void checkValidBinarySearchTreeMinMax() {
+        BSTMaker maker = new BSTMaker();
+        BTNode node = maker.makeBST(new int[]{1,3,5,8,9,13,14,15,16});
+
+        BSTValidator validator = new BSTValidator();
+
+        assertTrue(validator.isValidBSTMinMax(node));
+    }
+
+    @Test
+    public void checkInvalidBinarySearchTreeMinMax() {
+        BSTMaker maker = new BSTMaker();
+        BTNode node = maker.makeBST(new int[]{3,1,5,8,9,13,14,15,16});
+
+        BSTValidator validator = new BSTValidator();
+
+        assertFalse(validator.isValidBSTMinMax(node));
+    }
 }
