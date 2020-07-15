@@ -1,6 +1,6 @@
 public class BSTValidator {
     private Integer lastValue;
-    public boolean isValidBST(BTNode node) {
+    public boolean isValidBST(BTNode<Integer> node) {
         if (node == null) {
             return true;
         }
@@ -22,11 +22,11 @@ public class BSTValidator {
         return true;
     }
 
-    public boolean isValidBSTMinMax(BTNode node) {
+    public boolean isValidBSTMinMax(BTNode<Integer> node) {
         return checkValidSubtree(node.left, new MinMax(Integer.MIN_VALUE, node.value)) && checkValidSubtree(node.right, new MinMax(node.value, Integer.MAX_VALUE));
     }
 
-    private boolean checkValidSubtree(BTNode node, MinMax minMax) {
+    private boolean checkValidSubtree(BTNode<Integer> node, MinMax minMax) {
         if (node == null) {
             return true;
         }

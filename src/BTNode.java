@@ -1,11 +1,11 @@
 import java.util.Objects;
 
-public class BTNode {
-    public int value;
+public class BTNode<T> {
+    public T value;
     public BTNode left = null;
     public BTNode right = null;
 
-    BTNode(int value) {
+    BTNode(T value) {
         this.value = value;
     }
 
