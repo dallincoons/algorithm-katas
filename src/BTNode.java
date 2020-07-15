@@ -2,8 +2,9 @@ import java.util.Objects;
 
 public class BTNode<T> {
     public T value;
-    public BTNode left = null;
-    public BTNode right = null;
+    public BTNode<T> left = null;
+    public BTNode<T> right = null;
+    public BTNode<T> parent = null;
 
     BTNode(T value) {
         this.value = value;
