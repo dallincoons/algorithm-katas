@@ -9,7 +9,13 @@ public class ProjectOptimizer<T> {
 
         ArrayList<Node> nonDependants = graph.getNonDependants();
 
-        while (nonDependants.size() > 1) {
+        if (nonDependants.size() == 0) {
+            return null;
+        }
+
+        int nodeCount = graph.getNodes().size();
+
+        while (nonDependants.size() > 0) {
             for (Node node : nonDependants) {
                 graph.removeEdge(node);
                 for (Node child : node.children) {
@@ -18,6 +24,10 @@ public class ProjectOptimizer<T> {
                 optimizedList.add(node.value);
             }
             nonDependants = graph.getNonDependants();
+        }
+
+        if (optimizedList.size() != nodeCount) {
+            return null;
         }
 
         return optimizedList;
