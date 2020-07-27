@@ -31,7 +31,7 @@ public class LowestCommonAncestorTest {
     }
 
     @Test
-    public void findLCAUsingLinkIntersection() {
+    public void findLCAUsingSiblingSubtree() {
         BTNode root = new BTNode<>('A');
 
         root.left = new BTNode<>('B');
@@ -57,9 +57,9 @@ public class LowestCommonAncestorTest {
 
         LCAFinder finder = new LCAFinder(root);
 
-        assertEquals(new BTNode<>('D'), finder.findWithLinkIntersection(root.left.left , root.left.left.right));
-        assertEquals(new BTNode<>('B'), finder.findWithLinkIntersection(root.left.left.right, root.left.right.right));
-        assertEquals(new BTNode<>('D'), finder.findWithLinkIntersection(root.left.left.left, root.left.left.right));
-        assertEquals(new BTNode<>('A'), finder.findWithLinkIntersection(root.left.left.left, root.right));
+        assertEquals(new BTNode<>('D'), finder.findUsingSiblingSubtree(root.left.left , root.left.left.right));
+        assertEquals(new BTNode<>('B'), finder.findUsingSiblingSubtree(root.left.left.right, root.left.right.right));
+        assertEquals(new BTNode<>('D'), finder.findUsingSiblingSubtree(root.left.left.left, root.left.left.right));
+        assertEquals(new BTNode<>('A'), finder.findUsingSiblingSubtree(root.left.left.left, root.right));
     }
 }

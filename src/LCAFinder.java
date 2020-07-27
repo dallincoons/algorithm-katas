@@ -33,7 +33,9 @@ public class LCAFinder {
         return null;
     }
 
-    public BTNode findWithLinkIntersection(BTNode n1, BTNode n2) {
+    //O(t) where t is the size of the subtree for the first common ancestor
+    //O(n) is the worst case, where n is all nodes in the tree
+    public BTNode findUsingSiblingSubtree(BTNode n1, BTNode n2) {
        if (covers(n1, n2)) {
            return n1;
        } else if (covers(n2, n1)) {
