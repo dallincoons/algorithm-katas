@@ -33,4 +33,47 @@ public class LCAFinder {
         return null;
     }
 
+    public BTNode findWithLinkIntersection(BTNode n1, BTNode n2) {
+       if (covers(n1, n2)) {
+           return n1;
+       } else if (covers(n2, n1)) {
+          return n2;
+       }
+
+       BTNode current = n1;
+
+       while (current != null) {
+           BTNode sibling = findSibling(current);
+
+           if (covers(sibling, n2)) {
+               return sibling.parent;
+           }
+
+           current = current.parent;
+       }
+
+       return null;
+    }
+
+    private BTNode findSibling(BTNode n1) {
+       BTNode parent = n1.parent;
+
+       if (parent.left.value == n1.value) {
+           return parent.right;
+       } else {
+          return parent.left;
+       }
+    }
+
+    private boolean covers(BTNode n1, BTNode n2) {
+        if (n1 == null) {
+           return false;
+        }
+
+        if (n1.value == n2.value) {
+           return true;
+        }
+
+        return covers(n1.left, n2) || covers(n1.right, n2);
+    }
 }
