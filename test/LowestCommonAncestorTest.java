@@ -31,6 +31,39 @@ public class LowestCommonAncestorTest {
     }
 
     @Test
+    public void findLCAUsingLinkIntersection() {
+        BTNode root = new BTNode<>('A');
+
+        root.left = new BTNode<>('B');
+        root.left.parent = root;
+
+        root.right = new BTNode<>('C');
+        root.right.parent = root;
+
+        root.left.left = new BTNode<>('D');
+        root.left.left.parent = root.left;
+
+        root.left.left.left = new BTNode<>('E');
+        root.left.left.left.parent = root.left.left;
+
+        root.left.left.right = new BTNode<>('F');
+        root.left.left.right.parent = root.left.left;
+
+        root.left.right = new BTNode<>('G');
+        root.left.right.parent = root.left;
+
+        root.left.right.right = new BTNode<>('H');
+        root.left.right.right.parent = root.left.right;
+
+        LCAFinder finder = new LCAFinder(root);
+
+        assertEquals('D', finder.findUsingSiblingSubtree(root.left.left , root.left.left.right).value);
+        assertEquals('B', finder.findUsingSiblingSubtree(root.left.left.right, root.left.right.right).value);
+        assertEquals('D', finder.findUsingSiblingSubtree(root.left.left.left, root.left.left.right).value);
+        assertEquals('A', finder.findUsingSiblingSubtree(root.left.left.left, root.right).value);
+    }
+
+    @Test
     public void findLCAUsingSiblingSubtree() {
         BTNode root = new BTNode<>('A');
 

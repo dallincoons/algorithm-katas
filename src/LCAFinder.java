@@ -33,6 +33,53 @@ public class LCAFinder {
         return null;
     }
 
+    public BTNode findUsingLinkIntersection(BTNode root, BTNode n1, BTNode n2) {
+        BTNode bigger;
+        BTNode smaller;
+
+        int n1Depth = getNodeDepth(root, n1);
+        int n2Depth = getNodeDepth(root, n2);
+
+        if (n1Depth >= n2Depth) {
+            bigger = n1;
+            smaller = n2;
+        } else {
+            bigger = n2;
+            smaller = n1;
+        }
+
+        int difference = Math.abs(n1Depth - n2Depth);
+
+        for(int i = 0; i < difference; i++) {
+           bigger = bigger.parent;
+        }
+
+        for(int i = 0; i < Math.min(n1Depth, n2Depth); i++) {
+            if (bigger.equals(smaller)) {
+                return smaller;
+            }
+
+            bigger = bigger.parent;
+            smaller = smaller.parent;
+        }
+
+        return new BTNode<>('Z');
+    }
+
+    private int getNodeDepth(BTNode root, BTNode node) {
+        if (node.equals(root)) {
+           return 0;
+        }
+
+        int depth = 1;
+        while (!node.parent.equals(root)) {
+            node = node.parent;
+            depth++;
+        }
+
+        return depth;
+    }
+
     //O(t) where t is the size of the subtree for the first common ancestor
     //O(n) is the worst case, where n is all nodes in the tree
     public BTNode findUsingSiblingSubtree(BTNode n1, BTNode n2) {
