@@ -114,6 +114,8 @@ public class LCAFinder {
        }
     }
 
+    //Useful for when we don't have links to parents.
+    //This isn't the most optimal solution, but it's fairly straightforward
     public BTNode findLCAWithTreeDissection(BTNode root, BTNode n1, BTNode n2) {
         if (!covers(root, n1) || !covers(root, n2)) {
             return null;
