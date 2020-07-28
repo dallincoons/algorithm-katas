@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class LowestCommonAncestorTest {
     @Test
@@ -94,5 +94,39 @@ public class LowestCommonAncestorTest {
         assertEquals(new BTNode<>('B'), finder.findUsingSiblingSubtree(root.left.left.right, root.left.right.right));
         assertEquals(new BTNode<>('D'), finder.findUsingSiblingSubtree(root.left.left.left, root.left.left.right));
         assertEquals(new BTNode<>('A'), finder.findUsingSiblingSubtree(root.left.left.left, root.right));
+    }
+
+    @Test
+    public void findLCAUsingTreeDissection() {
+        BTNode root = new BTNode<>('A');
+
+        root.left = new BTNode<>('B');
+        root.left.parent = root;
+
+        root.right = new BTNode<>('C');
+        root.right.parent = root;
+
+        root.left.left = new BTNode<>('D');
+        root.left.left.parent = root.left;
+
+        root.left.left.left = new BTNode<>('E');
+        root.left.left.left.parent = root.left.left;
+
+        root.left.left.right = new BTNode<>('F');
+        root.left.left.right.parent = root.left.left;
+
+        root.left.right = new BTNode<>('G');
+        root.left.right.parent = root.left;
+
+        root.left.right.right = new BTNode<>('H');
+        root.left.right.right.parent = root.left.right;
+
+        LCAFinder finder = new LCAFinder(root);
+
+        assertEquals(new BTNode<>('D'), finder.findLCAWithTreeDissection(root, root.left.left, root.left.left.right));
+        assertEquals(new BTNode<>('B'), finder.findLCAWithTreeDissection(root, root.left.left.right, root.left.right.right));
+        assertEquals(new BTNode<>('D'), finder.findLCAWithTreeDissection(root, root.left.left.left, root.left.left.right));
+        assertEquals(new BTNode<>('A'), finder.findLCAWithTreeDissection(root, root.left.left.left, root.right));
+        assertNull(finder.findLCAWithTreeDissection(root, new BTNode<>('Z'), root.right));
     }
 }

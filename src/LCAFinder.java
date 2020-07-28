@@ -114,6 +114,33 @@ public class LCAFinder {
        }
     }
 
+    public BTNode findLCAWithTreeDissection(BTNode root, BTNode n1, BTNode n2) {
+        if (!covers(root, n1) || !covers(root, n2)) {
+            return null;
+        }
+
+        return getLCAFromDissection(root, n1, n2);
+    }
+
+    public BTNode getLCAFromDissection(BTNode root, BTNode n1, BTNode n2) {
+        if (root == null || root == n1 || root == n2) {
+            return root;
+        }
+
+        boolean n1FoundLeft = covers(root.left, n1);
+        boolean n2FoundLeft = covers(root.left, n2);
+
+        if (n1FoundLeft ^ n2FoundLeft) {
+            return root;
+        }
+
+        if (n1FoundLeft && n2FoundLeft) {
+            return findLCAWithTreeDissection(root.left, n1, n2);
+        } else {
+            return findLCAWithTreeDissection(root.right, n1, n2);
+        }
+    }
+
     private boolean covers(BTNode n1, BTNode n2) {
         if (n1 == null) {
            return false;
