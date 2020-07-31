@@ -143,13 +143,51 @@ public class LCAFinder {
         }
     }
 
+    public BTNode findLCAUsingBubbleUp(BTNode root, BTNode n1, BTNode n2) {
+        if (!covers(root, n1) || !covers(root, n2)) {
+            return null;
+        }
+
+       return bubbleUp(root, n1, n2);
+    }
+
+    private BTNode bubbleUp(BTNode root, BTNode n1, BTNode n2) {
+        if (root == null) {
+            return null;
+        }
+
+        if (root.value == n1.value && root.value == n2.value) {
+            return root;
+        }
+
+        BTNode leftTree = bubbleUp(root.left, n1, n2);
+        if (leftTree != null && leftTree.value != n1.value && leftTree.value != n2.value) {
+            return leftTree;
+        }
+
+        BTNode rightTree = bubbleUp(root.right, n1, n2);
+        if (rightTree != null && rightTree.value != n1.value && rightTree.value != n2.value) {
+            return rightTree;
+        }
+
+        if (leftTree != null && rightTree != null) {
+            return root;
+        }
+
+        if (root.value == n1.value || root.value == n2.value) {
+            return root;
+        }
+
+        return leftTree == null ? rightTree : leftTree;
+    }
+
     private boolean covers(BTNode n1, BTNode n2) {
         if (n1 == null) {
-           return false;
+            return false;
         }
 
         if (n1.value == n2.value) {
-           return true;
+            return true;
         }
 
         return covers(n1.left, n2) || covers(n1.right, n2);

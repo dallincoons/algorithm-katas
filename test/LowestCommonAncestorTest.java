@@ -116,4 +116,37 @@ public class LowestCommonAncestorTest {
         assertEquals(new BTNode<>('A'), finder.findLCAWithTreeDissection(root, root.left.left.left, root.right));
         assertNull(finder.findLCAWithTreeDissection(root, new BTNode<>('Z'), root.right));
     }
+
+    @Test
+    public void findLCAUsingBubbleUp() {
+        BTNode root = new BTNode<>('A');
+
+        root.left = new BTNode<>('B');
+        root.right = new BTNode<>('C');
+        root.left.left = new BTNode<>('D');
+        root.left.left.left = new BTNode<>('E');
+        root.left.left.right = new BTNode<>('F');
+        root.left.right = new BTNode<>('G');
+        root.left.right.right = new BTNode<>('H');
+
+        LCAFinder finder = new LCAFinder(root);
+
+        assertEquals(new BTNode<>('D'), finder.findLCAUsingBubbleUp(root, root.left.left, root.left.left.right));
+        assertEquals(new BTNode<>('B'), finder.findLCAUsingBubbleUp(root, root.left.left.right, root.left.right.right));
+        assertEquals(new BTNode<>('D'), finder.findLCAUsingBubbleUp(root, root.left.left.left, root.left.left.right));
+        assertEquals(new BTNode<>('A'), finder.findLCAUsingBubbleUp(root, root.left.left.left, root.right));
+    }
+
+    @Test
+    public void bubbleUpHandlesNonExistentNode() {
+        BTNode root = new BTNode<>('A');
+
+        root.left = new BTNode<>('B');
+        root.right = new BTNode<>('C');
+        root.right.right = new BTNode<>('D');
+
+        LCAFinder finder = new LCAFinder(root);
+
+        assertEquals(null, finder.findLCAUsingBubbleUp(root, root.right.right, new BTNode<>('Z')));
+    }
 }
