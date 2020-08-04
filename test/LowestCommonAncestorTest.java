@@ -138,6 +138,27 @@ public class LowestCommonAncestorTest {
     }
 
     @Test
+    public void findLCAUsingBubbleUpTest() {
+        BTNode root = new BTNode<>('A');
+
+        root.left = new BTNode<>('B');
+        root.right = new BTNode<>('C');
+        root.left.left = new BTNode<>('D');
+        root.left.left.left = new BTNode<>('E');
+        root.left.left.right = new BTNode<>('F');
+        root.left.right = new BTNode<>('G');
+        root.left.right.right = new BTNode<>('H');
+
+        LCAFinder finder = new LCAFinder(root);
+
+        assertEquals(new BTNode<>('D'), finder.findLCAUsingBubbleUp(root, root.left.left, root.left.left.right));
+        assertEquals(new BTNode<>('B'), finder.findLCAUsingBubbleUp(root, root.left.left.right, root.left.right.right));
+        assertEquals(new BTNode<>('D'), finder.findLCAUsingBubbleUp(root, root.left.left.left, root.left.left.right));
+        assertEquals(new BTNode<>('A'), finder.findLCAUsingBubbleUp(root, root.left.left.left, root.right));
+        assertNull(finder.findLCAUsingBubbleUp(root, new BTNode<>('Z'), root.right));
+    }
+
+    @Test
     public void bubbleUpHandlesNonExistentNode() {
         BTNode root = new BTNode<>('A');
 
@@ -148,5 +169,39 @@ public class LowestCommonAncestorTest {
         LCAFinder finder = new LCAFinder(root);
 
         assertEquals(null, finder.findLCAUsingBubbleUp(root, root.right.right, new BTNode<>('Z')));
+    }
+
+    @Test
+    public void findLCAUsingClassBubbleUpTest() {
+        BTNode root = new BTNode<>('A');
+
+        root.left = new BTNode<>('B');
+        root.right = new BTNode<>('C');
+        root.left.left = new BTNode<>('D');
+        root.left.left.left = new BTNode<>('E');
+        root.left.left.right = new BTNode<>('F');
+        root.left.right = new BTNode<>('G');
+        root.left.right.right = new BTNode<>('H');
+
+        LCAFinder finder = new LCAFinder(root);
+
+        assertEquals(new BTNode<>('D'), finder.findLCAUsingObjectBubbleUp(root, root.left.left, root.left.left.right));
+        assertEquals(new BTNode<>('B'), finder.findLCAUsingObjectBubbleUp(root, root.left.left.right, root.left.right.right));
+        assertEquals(new BTNode<>('D'), finder.findLCAUsingObjectBubbleUp(root, root.left.left.left, root.left.left.right));
+        assertEquals(new BTNode<>('A'), finder.findLCAUsingObjectBubbleUp(root, root.left.left.left, root.right));
+        assertNull(finder.findLCAUsingObjectBubbleUp(root, new BTNode<>('Z'), root.right));
+    }
+
+    @Test
+    public void bubbleUpHandlesNonExistentNodeUsingObjectBubbleUp() {
+        BTNode root = new BTNode<>('A');
+
+        root.left = new BTNode<>('B');
+        root.right = new BTNode<>('C');
+        root.right.right = new BTNode<>('D');
+
+        LCAFinder finder = new LCAFinder(root);
+
+        assertEquals(null, finder.findLCAUsingObjectBubbleUp(root, root.right.right, new BTNode<>('Z')));
     }
 }

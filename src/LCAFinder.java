@@ -192,4 +192,56 @@ public class LCAFinder {
 
         return covers(n1.left, n2) || covers(n1.right, n2);
     }
+
+    public BTNode findLCAUsingObjectBubbleUp(BTNode root, BTNode n1, BTNode n2) {
+        Result result = doLCAUsingObjectBubbleUp(root, n1, n2);
+        if (result.isAncestor) {
+           return result.node;
+        }
+
+        return null;
+    }
+
+    public Result doLCAUsingObjectBubbleUp(BTNode root, BTNode n1, BTNode n2) {
+        if (root == null) {
+            return new Result(null, false);
+        }
+
+        if (root.value == n1.value && root.value == n2.value) {
+            return new Result(root, true);
+        }
+
+        Result leftTree = doLCAUsingObjectBubbleUp(root.left, n1, n2);
+        if (leftTree.isAncestor) {
+            return leftTree;
+        }
+
+        Result rightTree = doLCAUsingObjectBubbleUp(root.right, n1, n2);
+        if (rightTree.isAncestor) {
+            return rightTree;
+        }
+
+        if (leftTree.node != null && rightTree.node != null) {
+            return new Result(root, true);
+        }
+
+        //if we're currently at p or q, and we also found one of those nodes in a subtree
+        //then this is truly an ancestor and the flag should be true
+        if (root.value == n1.value || root.value == n2.value) {
+            boolean isAncestor = leftTree.node != null || rightTree.node != null;
+
+            return new Result(root, isAncestor);
+        }
+
+        return new Result(leftTree.node == null ? rightTree.node : leftTree.node, false);
+    }
+
+    private class Result {
+        public BTNode node;
+        public boolean isAncestor;
+        public Result(BTNode node, boolean isAncestor) {
+            this.node = node;
+            this.isAncestor = isAncestor;
+        }
+    }
 }
