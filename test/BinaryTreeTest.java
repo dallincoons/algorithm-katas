@@ -135,4 +135,14 @@ public class BinaryTreeTest {
 
         assertFalse(validator.isValidBSTMinMax(node));
     }
+
+    @Test
+    public void getAllPossibleInitializingArrays() {
+        BSTMaker maker = new BSTMaker();
+        BTNode node = maker.makeBST(new int[]{50,20,10,25,5,15,60,70,65,80});
+
+        BSTInitialArrays finder = new BSTInitialArrays();
+
+        assertEquals(2268, finder.allSequences(node).size());
+    }
 }
