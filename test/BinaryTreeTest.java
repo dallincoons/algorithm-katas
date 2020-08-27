@@ -1,7 +1,9 @@
 import org.junit.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import static org.junit.Assert.*;
 
@@ -134,6 +136,25 @@ public class BinaryTreeTest {
         BSTValidator validator = new BSTValidator();
 
         assertFalse(validator.isValidBSTMinMax(node));
+    }
+
+    @Test
+    public void getAllPossibleWeaves() {
+        BSTInitialArrays arr = new BSTInitialArrays();
+
+        LinkedList<Integer> list1 = new LinkedList();
+        list1.add(1);
+        list1.add(3);
+
+        LinkedList<Integer> list2 = new LinkedList();
+        list2.add(6);
+        list2.add(9);
+
+        ArrayList<LinkedList<Integer>> result = new ArrayList<>();
+
+        arr.weaveLists(list1, list2, result, new LinkedList<>());
+
+        assertEquals(6, result.size());
     }
 
     @Test

@@ -37,16 +37,12 @@ public class BSTInitialArrays {
             return;
         }
 
-        int headFirst = first.removeFirst();
-        prefix.addLast(headFirst);
+        prefix.addLast(first.removeFirst());
         weaveLists(first, second, results, prefix);
-        prefix.removeLast();
-        first.addFirst(headFirst);
+        first.addFirst(prefix.removeLast());
 
-        int headSecond = second.removeFirst();
-        prefix.addLast(headSecond);
+        prefix.addLast(second.removeFirst());
         weaveLists(first, second, results, prefix);
-        prefix.removeLast();
-        second.addFirst(headSecond);
+        second.addFirst(prefix.removeLast());
     }
 }
